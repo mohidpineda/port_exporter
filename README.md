@@ -12,31 +12,31 @@ L'exporter exposa les mètriques al punt final `/` a través d'HTTP, escoltant a
 
 ## Ús
 
-1.  **Clonar aquest repositori (si escau).**
-2.  **Construir l'exporter:**
+1. **Clonar aquest repositori (si escau).**
+2. **Construir l'exporter:**
 
-    ```bash
-    go build -o port_exporter main.go
-    ```
+   ```bash
+   go build -o port_exporter main.go
+   ```
 
-3.  **Executar l'exporter:**
+3. **Executar l'exporter:**
 
-    ```bash
-    ./port_exporter
-    ```
+   ```bash
+   ./port_exporter
+   ```
 
-    L'exporter començarà a servir les mètriques a `http://localhost:8000/`.
+   L'exporter començarà a servir les mètriques a `http://localhost:8000/`.
 
-4.  **Configurar Prometheus:**
+4. **Configurar Prometheus:**
 
-    Afegeix la següent configuració al fitxer de configuració de Prometheus (`prometheus.yml`) per començar a recollir les mètriques:
+   Afegeix la següent configuració al fitxer de configuració de Prometheus (`prometheus.yml`) per començar a recollir les mètriques:
 
-    ```yaml
-    scrape_configs:
-      - job_name: 'port_exporter'
-        static_configs:
-          - targets: ['localhost:8000']
-    ```
+   ```yaml
+   scrape_configs:
+     - job_name: 'port_exporter'
+       static_configs:
+         - targets: ['localhost:8000']
+   ```
 
 ## Consideracions sobre el Rendiment
 
@@ -44,4 +44,19 @@ Aquest exporter, per defecte, comprova **tots** els ports TCP (de l'1 al 65535) 
 
 ## Dependències
 
-Aquest projecte utilitza la llibreria de client de Prometheus per a Go:
+Aquest projecte utilitza la **llibreria client oficial de Prometheus per a Go**, que permet crear i exposar mètriques de manera senzilla.
+
+Les principals dependències són:
+
+- [`github.com/prometheus/client_golang/prometheus`](https://pkg.go.dev/github.com/prometheus/client_golang/prometheus): Per definir i registrar mètriques.
+- [`github.com/prometheus/client_golang/prometheus/promhttp`](https://pkg.go.dev/github.com/prometheus/client_golang/prometheus/promhttp): Per exposar les mètriques a través d'HTTP.
+
+### Instal·lació de dependències
+
+Des de la carpeta del projecte, simplement executa:
+
+```bash
+go mod tidy
+```
+
+Aquest comandament crearà automàticament el fitxer `go.mod` (si no existeix) i descarregarà totes les dependències necessàries.
