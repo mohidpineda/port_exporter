@@ -1,4 +1,4 @@
-package portexporter
+package main
 
 import (
 	"fmt"
